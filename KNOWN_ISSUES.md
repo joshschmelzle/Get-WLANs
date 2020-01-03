@@ -24,12 +24,12 @@ Run powershell as Administrator.
 
 ```
 # check current execution policy
->Get-ExecutionPolicy
+> Get-ExecutionPolicy
 
->Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+> Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 
 # verify execution policy change
->Get-ExecutionPolicy
+> Get-ExecutionPolicy
 ```
 
 ### How to Revert Changes
@@ -37,7 +37,7 @@ Run powershell as Administrator.
 Run powershell as Administrator.
 
 ```
-Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy restricted
+> Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy restricted
 ```
 
 ## Results from Multiple NICs are Combined
