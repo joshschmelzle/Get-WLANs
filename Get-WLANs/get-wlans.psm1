@@ -1,6 +1,9 @@
 function Get-WLANs {
-    $WlanAPICode = Get-Content -Path "wlanapicode.cs" -Raw
-    Add-Type -TypeDefinition "$WlanAPICode"
+    [CmdletBinding()]
+    param()
+
+    $wlanapi = Get-Content -Path (Join-Path $PSScriptRoot "wlanapi.cs") -Raw
+    Add-Type -TypeDefinition "$wlanapi"
 
     $phytypehash = @{
         0  = "UNKNOWN";
@@ -122,7 +125,9 @@ function Get-WLANs {
     $results = @{}
 
     $WlanClient.Interfaces | ForEach-Object {
-        Write-Host "Starting scan() on $($_.InterfaceName) ($($_.InterfaceGuid))"
+        if ($PSBoundParameters['Verbose']) {
+            Write-Host "Starting scan() on $($_.InterfaceName) ($($_.InterfaceGuid))"
+        }
         $_.Scan()
         Start-Sleep -s 3
         $_.GetNetworkBssList() | Select-Object `

@@ -1,12 +1,20 @@
 # Get-WLANs
 
-This Windows PowerShell module leverages [Native Wifi](https://docs.microsoft.com/en-us/windows/win32/nativewifi/portal)'s [wlanapi.h](https://docs.microsoft.com/en-us/windows/win32/api/wlanapi/) to retrieve information (including RSSI values) about nearby Wi-Fi networks.
+Get-WLANs is a Windows PowerShell module which leverages [Native Wifi](https://docs.microsoft.com/en-us/windows/win32/nativewifi/portal)'s [wlanapi.h](https://docs.microsoft.com/en-us/windows/win32/api/wlanapi/). This allows retrieval of information (such as RSSI values) about nearby Wi-Fi networks.
+
+# Install from PowerShell Gallery
+
+You can install [Get-WLANs from the PowerShell Gallery](https://www.powershellgallery.com/packages/Get-WLANs) (PSGallery).
+
+```
+Install-Module -Name Get-WLANs
+```
 
 # Module Usage Example
 
 ```
-# assuming module is in same directory as script
-Import-Module (Join-Path (Split-Path $MyInvocation.MyCommand.Path) get-wlans.psm1)
+# assuming module was installed from PSGallery.
+Import-Module Get-WLANs
 
 # run scan, sort by RSSI, and display as a Format-Table
 Get-WLANs | Sort-Object -Property RSSI -Descending | Format-Table
