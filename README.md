@@ -4,15 +4,19 @@ Get-WLANs is a Windows PowerShell module which leverages [Native Wifi](https://d
 
 # Install from PowerShell Gallery
 
-You can install [Get-WLANs from the PowerShell Gallery](https://www.powershellgallery.com/packages/Get-WLANs) (PSGallery).
+You can install [Get-WLANs from the PowerShell Gallery](https://www.powershellgallery.com/packages/Get-WLANs) (PSGallery). 
 
 ```
 Install-Module -Name Get-WLANs
+Import-Module Get-WLANs
+Get-WLANs
 ```
 
 ![](docs/WindowsTerminal_jgCkTPJBx4.png)
 
-# Module Usage Example
+# Basic Module Example
+
+You can sort and format the output of `Get-WLANs` like this:
 
 ```
 # assuming module was installed from PSGallery.
