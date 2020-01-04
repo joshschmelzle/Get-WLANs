@@ -4,7 +4,7 @@
 @{
 
 RootModule = 'Get-WLANs.psm1'
-ModuleVersion = '0.0.1'
+ModuleVersion = '0.0.2'
 GUID = '997ccb39-6038-4f66-a015-c39cf95c438f'
 Author = 'Josh Schmelzle'
 Copyright = '(c) Josh Schmelzle. All rights reserved.'
@@ -12,7 +12,7 @@ Description = 'Get information about nearby Wi-Fi networks'
 PowerShellVersion = '3.0'
 FunctionsToExport = @('Get-WLANs')
 CmdletsToExport = @('Get-WLANs')
-FileList = @('wlanapicode.cs')
+FileList = @('wlanapi.cs')
 
 PrivateData = @{
     PSData = @{
