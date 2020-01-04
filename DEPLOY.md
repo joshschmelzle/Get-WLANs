@@ -6,6 +6,8 @@ Notes before you start:
 
 ## SOP
 
+Open PowerShell Core.
+
 1. Run `Test-ModuleManifest` to verify module manifest passes tests.
 
 2. `cd` into the root repository directory `.\Get-WLANs`
