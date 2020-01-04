@@ -10,6 +10,8 @@ You can install [Get-WLANs from the PowerShell Gallery](https://www.powershellga
 Install-Module -Name Get-WLANs
 ```
 
+![](docs/WindowsTerminal_jgCkTPJBx4.png)
+
 # Module Usage Example
 
 ```
