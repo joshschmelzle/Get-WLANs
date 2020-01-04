@@ -1,6 +1,6 @@
 # Get-WLANs
 
-Get-WLANs is a Windows PowerShell module which leverages [Native Wifi](https://docs.microsoft.com/en-us/windows/win32/nativewifi/portal)'s [wlanapi.h](https://docs.microsoft.com/en-us/windows/win32/api/wlanapi/). This allows retrieval of information (such as RSSI values) about nearby Wi-Fi networks.
+This module is only for Windows devices and leverages Microsoft's Native Wifi [wlanapi.h](https://docs.microsoft.com/en-us/windows/win32/api/wlanapi/) to get information about nearby Wi-Fi networks. 
 
 # Install from PowerShell Gallery
 
