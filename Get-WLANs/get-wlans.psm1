@@ -1,6 +1,6 @@
 function Get-WLANs {
     [CmdletBinding()]
-    param()
+    param([String]$Interface)
 
     $wlanapi = Get-Content -Path (Join-Path $PSScriptRoot "wlanapi.cs") -Raw
     Add-Type -TypeDefinition "$wlanapi"
@@ -112,32 +112,54 @@ function Get-WLANs {
         $bssid
     }
 
-    $WlanClient = New-Object NativeWifi.WlanClient
+    $wlanClient = New-Object NativeWifi.WlanClient
   
     $connectedbssid = $wlanClient.Interfaces | 
     ForEach-Object {
         $_.CurrentConnection.wlanAssociationAttributes._dot11Bssid  
     }
+
     if ($connectedbssid) {
         $connectedbssid = [System.BitConverter]::ToString($connectedbssid).Replace("-", ":")
     }
     
-    $results = @{}
-
-    $WlanClient.Interfaces | ForEach-Object {
-        if ($PSBoundParameters['Verbose']) {
-            Write-Host "Starting scan() on $($_.InterfaceName) ($($_.InterfaceGuid))"
+    if ($Interface) {
+        $iface = $WlanClient.Interfaces | Where-Object {$_.InterfaceName -eq $Interface}
+        $ifaces = ($WlanClient.Interfaces | Select-Object -ExpandProperty 'InterfaceName') -join ', '
+        if (-Not $iface) {
+            Write-Host "$($Interface) not found. did you mean one of these? $($ifaces)"
+            Break
         }
-        $_.Scan()
-        Start-Sleep -s 3
-        $_.GetNetworkBssList() | Select-Object `
+    } else {
+        $iface = $WlanClient.Interfaces[0]
+    }
+
+    if ($PSBoundParameters['Verbose']) {
+        Write-Host "Starting scan() on $($iface.InterfaceName) ($($iface.InterfaceGuid))"
+    }
+
+    $iface.Scan()
+    
+    Start-Sleep -s 4
+    function ParseNetworkBssList {
+        [CmdletBinding()] Param (
+            [Parameter(Mandatory = $True, ValueFromPipeline = $True)] $NetworkBssList
+        )
+        $NetworkBssList | Select-Object `
         @{Name = "SSID"; Expression = { (Convert-dot11SSID -ssid $_.dot11ssid.SSID) } }, `
         @{Name = "BSSID"; Expression = { (Convert-dot11BSSID -bssid $_.dot11bssid) } }, `
         @{Name = "RSSI"; Expression = { $_.rssi } }, `
+        @{Name = "QUALITY"; Expression = { $_.linkQuality } }, `
         @{Name = "FREQ"; Expression = { $_.chCenterFrequency / 1000 } }, `
         @{Name = "CHANNEL"; Expression = { $freqchannelhash[[int]($_.chCenterFrequency / 1000)] } }, `
-        @{Name = "PHY"; Expression = { $phytypehash[[int]$_.dot11BssPhyType] } }
+        @{Name = "PHY"; Expression = { $phytypehash[[int]$_.dot11BssPhyType] } }, `
+        @{Name = "CAPABILITY"; Expression = { '0x{0:x4}' -f $_.capabilityInformation } }, `
+        @{Name = "IESIZE"; Expression = { $_.ieSize } }
     }
 
-    Write-Host $results | Select-Object *
+    function GetNetworkBssList {
+        ParseNetworkBssList($iface.GetNetworkBssList())
+    }
+
+    GetNetworkBssList
 }
