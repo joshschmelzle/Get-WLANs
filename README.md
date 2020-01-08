@@ -31,10 +31,20 @@ Remove-Module Get-WLANs
 
 ![](docs/1-nic-scan-examplev2.png)
 
-## Known Issues
+# Updating
+
+```
+# update module with
+Update-Module Get-WLANs
+
+# get current version with
+Get-Module Get-WLANs
+```
+
+# Known Issues
 
 I've documented a few [known issues here](KNOWN_ISSUES.md)
 
-## License
+# License
 
 Project [license can be found here](LICENSE)
