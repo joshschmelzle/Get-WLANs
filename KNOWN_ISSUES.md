@@ -40,13 +40,6 @@ Run powershell as Administrator.
 > Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy restricted
 ```
 
-## Results from Multiple NICs are Combined
-
-If you have 2 or more WLAN NICs present, the module will initiate a scan on each NIC and then combine the results. This may or may not be desired.
-
-
-![](docs/2-nics-scan-examplev2.png)
-
 ## Scan Wait Interval is Hard Coded
 
 This script does not use callbacks, but instead waits a set number of seconds after a scan to retrieve the scan results. This is not ideal, but should work for the most part. 
