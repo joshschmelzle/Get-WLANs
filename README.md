@@ -38,6 +38,7 @@ Remove-Module Get-WLANs
 Update-Module Get-WLANs
 
 # get current version with
+Import-Module Get-WLANs
 Get-Module Get-WLANs
 ```
 
