@@ -4,7 +4,7 @@
 @{
 
 RootModule = 'Get-WLANs.psm1'
-ModuleVersion = '0.0.3'
+ModuleVersion = '0.0.4'
 GUID = '997ccb39-6038-4f66-a015-c39cf95c438f'
 Author = 'Josh Schmelzle'
 Copyright = '(c) Josh Schmelzle. All rights reserved.'
