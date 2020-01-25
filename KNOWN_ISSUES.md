@@ -39,7 +39,3 @@ Run powershell as Administrator.
 ```
 > Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy restricted
 ```
-
-## Scan Wait Interval is Hard Coded
-
-This script does not use callbacks, but instead waits a set number of seconds after a scan to retrieve the scan results. This is not ideal, but should work for the most part. 
