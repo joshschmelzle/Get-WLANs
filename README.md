@@ -1,8 +1,8 @@
 # Get-WLANs
 
-This module is only for Windows devices and leverages Microsoft's Native Wifi [wlanapi.h](https://docs.microsoft.com/en-us/windows/win32/api/wlanapi/) to get information about nearby Wi-Fi networks. 
+This module is for Windows devices only because it leverages the Native Wifi [wlanapi.h](https://docs.microsoft.com/en-us/windows/win32/api/wlanapi/) from Microsoft to get information about nearby Wi-Fi networks. 
 
-**This is a work in progress. Please let me know if you have any constructive feedback.**
+**This is a work in progress. Please let me know if you have any feedback.**
 
 # Install from PowerShell Gallery
 
