@@ -1,8 +1,8 @@
 # Get-WLANs
 
-This module is for Windows devices only because it leverages the Native Wifi [wlanapi.h](https://docs.microsoft.com/en-us/windows/win32/api/wlanapi/) from Microsoft to get information about nearby Wi-Fi networks. 
+A PSGallery module to retrieve information about nearby Wi-Fi networks. This is for Windows only because it leverages Native Wifi [wlanapi.h](https://docs.microsoft.com/en-us/windows/win32/api/wlanapi/). 
 
-**This is a work in progress. Please let me know if you have any feedback.**
+**This is a work in progress.**
 
 # Install from PowerShell Gallery
 
@@ -36,6 +36,9 @@ Remove-Module Get-WLANs
 # Updating
 
 ```
+# if the module is in use
+Remove-Module Get-WLANs
+
 # update module with
 Update-Module Get-WLANs
 
