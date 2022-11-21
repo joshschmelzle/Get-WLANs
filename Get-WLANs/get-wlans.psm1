@@ -1,6 +1,6 @@
 function Get-WLANs {
     [CmdletBinding()]
-    param([String]$Interface,[Int]$ScanInterval=5)
+    param([String]$Interface)
 
     $wlanapi = Get-Content -Path (Join-Path $PSScriptRoot "wlanapi.cs") -Raw
     Add-Type -TypeDefinition "$wlanapi"
@@ -118,6 +118,9 @@ function Get-WLANs {
         if ($connectedbssid -eq $bssid) {
             $True
         }
+        else{
+            $False
+        }
     }
 
     $wlanClient = New-Object NativeWifi.WlanClient
@@ -148,7 +151,7 @@ function Get-WLANs {
 
     $iface.Scan()
     
-    Start-Sleep -s $ScanInterval
+    Start-Sleep -s 4
     function ParseNetworkBssList {
         [CmdletBinding()] Param (
             [Parameter(Mandatory = $True, ValueFromPipeline = $True)] $NetworkBssList
@@ -163,7 +166,7 @@ function Get-WLANs {
         @{Name = "PHY"; Expression = { $phytypehash[[int]$_.dot11BssPhyType] } }, `
         @{Name = "CAPABILITY"; Expression = { '0x{0:x4}' -f $_.capabilityInformation } }, `
         @{Name = "IESIZE"; Expression = { $_.ieSize } },`
-        @{Name = "CONNECTED"; Expression = { (Test-dot11BSSIDConecction -bssid $_.dot11bssid) } }
+        @{Name = "CONNECTED"; Expression = { Test-dot11BSSIDConecction -bssid $_.dot11bssid } }
     }
 
     function GetNetworkBssList {
