@@ -106,10 +106,21 @@ function Get-WLANs {
             [Parameter(Mandatory = $True, ValueFromPipeline = $True)] $bssid
         )
         $bssid = [System.BitConverter]::ToString($bssid).Replace("-", ":")
-        if ($connectedbssid -eq $bssid) {
-            $bssid = "$($bssid)(*)"
-        }
         $bssid
+    }
+
+    
+    function Test-dot11BSSIDConecction {
+        [CmdletBinding()] Param (
+            [Parameter(Mandatory = $True, ValueFromPipeline = $True)] $bssid
+        )
+        $bssid = [System.BitConverter]::ToString($bssid).Replace("-", ":")
+        if ($connectedbssid -eq $bssid) {
+            $True
+        }
+        else{
+            $False
+        }
     }
 
     $wlanClient = New-Object NativeWifi.WlanClient
@@ -154,7 +165,8 @@ function Get-WLANs {
         @{Name = "CHANNEL"; Expression = { $freqchannelhash[[int]($_.chCenterFrequency / 1000)] } }, `
         @{Name = "PHY"; Expression = { $phytypehash[[int]$_.dot11BssPhyType] } }, `
         @{Name = "CAPABILITY"; Expression = { '0x{0:x4}' -f $_.capabilityInformation } }, `
-        @{Name = "IESIZE"; Expression = { $_.ieSize } }
+        @{Name = "IESIZE"; Expression = { $_.ieSize } },`
+        @{Name = "CONNECTED"; Expression = { Test-dot11BSSIDConecction -bssid $_.dot11bssid } }
     }
 
     function GetNetworkBssList {
@@ -163,3 +175,4 @@ function Get-WLANs {
 
     GetNetworkBssList
 }
+
