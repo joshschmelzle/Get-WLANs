@@ -1,26 +1,24 @@
 # Get-WLANs
 
-A PSGallery module to retrieve information about nearby Wi-Fi networks. This is for Windows only because it leverages Native Wifi [wlanapi.h](https://docs.microsoft.com/en-us/windows/win32/api/wlanapi/). 
+Get-WLANs is a PSGallery module to retrieve information about nearby Wi-Fi networks. Get-WLANs is built for Windows and leverages Native Wifi ([wlanapi.h](https://docs.microsoft.com/en-us/windows/win32/api/wlanapi/) header).
 
-**This is a work in progress.**
+## Installing from PowerShell Gallery
 
-# Install from PowerShell Gallery
+You can install [Get-WLANs from the PowerShell Gallery](https://www.powershellgallery.com/packages/Get-WLANs) (PSGallery).
 
-You can install [Get-WLANs from the PowerShell Gallery](https://www.powershellgallery.com/packages/Get-WLANs) (PSGallery). 
-
-```
+```bash
 Install-Module -Name Get-WLANs
 Import-Module Get-WLANs
 Get-WLANs
 ```
 
-![](docs/WindowsTerminal_jgCkTPJBx4.png)
+![install example](docs/WindowsTerminal_jgCkTPJBx4.png)
 
-# Basic Module Example
+## Basic Module Example
 
 You can sort and format the output of `Get-WLANs` like this:
 
-```
+```bash
 # assuming module was installed from PSGallery.
 Import-Module Get-WLANs
 
@@ -31,11 +29,11 @@ Get-WLANs | Sort-Object -Property RSSI -Descending | Format-Table
 Remove-Module Get-WLANs
 ```
 
-![](docs/1-nic-scan-examplev2.png)
+![usage example](docs/1-nic-scan-examplev2.png)
 
-# Updating
+## Updating
 
-```
+```bash
 # if the module is in use
 Remove-Module Get-WLANs
 
@@ -47,10 +45,10 @@ Import-Module Get-WLANs
 Get-Module Get-WLANs
 ```
 
-# Known Issues
+## Known Issues
 
-I've documented a few [known issues here](KNOWN_ISSUES.md)
+[Some known issues documented here](KNOWN_ISSUES.md)
 
-# License
+## License
 
 Project [license can be found here](LICENSE)
