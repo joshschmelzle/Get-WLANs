@@ -1,6 +1,9 @@
 # assuming module is installed from PSGallery
 Import-Module Get-WLANs
 
+# assuming module is local
+# Import-Module .\Get-WLANs
+
 # run scan, sort by RSSI, and display as a Format-Table
 Get-WLANs | Sort-Object -Property RSSI -Descending | Format-Table
 
