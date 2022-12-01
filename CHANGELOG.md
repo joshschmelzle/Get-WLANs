@@ -5,7 +5,7 @@ UNRELEASED (xxx-xx-xx)
 ----------------------
 
 - Move connected WLAN designation into unique column (thanks @mwilco03)
-- Update channel hash map to fix frequency channel mapping for U-NII-4 to U-NII-8
+- Update channel hash map to include frequency channel mapping for U-NII-4 to U-NII-8
 
 0.0.4 (2020-01-07)
 ------------------

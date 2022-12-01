@@ -5,7 +5,7 @@
 
 Script fails to run because the system policy disallows it.
 
-```
+```powershell
 PS E:\dev\repos\Get-WLANs> .\scan.ps1
 .\scan.ps1 : File E:\dev\repos\Get-WLANs\scan.ps1 cannot be loaded because running scripts is disabled on this
 system. For more information, see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
@@ -22,7 +22,7 @@ To get around this, you must have admin privileges to change the execution polic
 
 Run powershell as Administrator.
 
-```
+```powershell
 # check current execution policy
 > Get-ExecutionPolicy
 
@@ -36,6 +36,6 @@ Run powershell as Administrator.
 
 Run powershell as Administrator.
 
-```
+```powershell
 > Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy restricted
 ```
