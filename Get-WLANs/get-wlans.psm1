@@ -1,6 +1,6 @@
 function Get-WLANs {
     [CmdletBinding()]
-    param([String]$Interface)
+    param([String]$requestedinterface)
 
     $wlanapi = Get-Content -Path (Join-Path $PSScriptRoot "wlanapi.cs") -Raw
     Add-Type -TypeDefinition "$wlanapi"
@@ -171,7 +171,7 @@ function Get-WLANs {
         if ($connectedbssid -eq $bssid) {
             $True
         }
-        else{
+        else {
             $False
         }
     }
@@ -187,15 +187,16 @@ function Get-WLANs {
         $connectedbssid = [System.BitConverter]::ToString($connectedbssid).Replace("-", ":")
     }
     
-    if ($Interface) {
-        $iface = $WlanClient.Interfaces | Where-Object {$_.InterfaceName -eq $Interface}
-        $ifaces = ($WlanClient.Interfaces | Select-Object -ExpandProperty 'InterfaceName') -join ', '
+    if ($requestedinterface) {
+        $iface = $wlanClient.Interfaces | Where-Object { $_.InterfaceName -eq $requestedinterface }
+        $ifaces = ($wlanClient.Interfaces | Select-Object -ExpandProperty 'InterfaceName') -join ', '
         if (-Not $iface) {
-            Write-Host "$($Interface) not found. did you mean one of these? $($ifaces)"
+            Write-Warning "$($requestedinterface) not found. did you mean one of these? $($ifaces)"
             Break
         }
-    } else {
-        $iface = $WlanClient.Interfaces[0]
+    }
+    else {
+        $iface = $wlanClient.Interfaces[0]
     }
 
     function ParseNetworkBssList {
@@ -211,22 +212,35 @@ function Get-WLANs {
         @{Name = "CHANNEL"; Expression = { $freqchannelhash[[int]($_.chCenterFrequency / 1000)] } }, `
         @{Name = "PHY"; Expression = { $phytypehash[[int]$_.dot11BssPhyType] } }, `
         @{Name = "CAPABILITY"; Expression = { '0x{0:x4}' -f $_.capabilityInformation } }, `
-        @{Name = "IESIZE"; Expression = { $_.ieSize } },`
+        @{Name = "IESIZE"; Expression = { $_.ieSize } }, `
         @{Name = "CONNECTED"; Expression = { Test-dot11BSSIDConecction -bssid $_.dot11bssid } }
     }
+    
+    # if ($PSBoundParameters['Verbose']) {
+    # }
 
-    if ($PSBoundParameters['Verbose']) {
-        Write-Host "Starting scan() on $($iface.InterfaceName) ($($iface.InterfaceGuid))"
-    }
-
+    $ifacemac = Get-NetAdapter | Where-Object { $_.InterfaceGuid -eq "{$($iface.InterfaceGuid)}" } | Select-Object MacAddress -ExpandProperty MacAddress 
+        
+    Write-Verbose "Starting scan() on $($iface.InterfaceName) (MAC Address: $($ifacemac))"
     $iface.Scan()
+    
+    # function global:NotifyAction {
+    #     [CmdletBinding()]
+    #     Param(
+    #         [Parameter(Mandatory = $True)] [Object[]] $event
+    #     )
+    #     Write-Output ParseNetworkBssList($iface.GetNetworkBssList())
+    # }
+    # $Notify = { 
+    #     NotifyAction($event)
+    # }
+    # $pso = new-object psobject -property @{if = $iface; }
+    # Register-ObjectEvent -InputObject $iface -EventName WlanNotification -SourceIdentifier WiphyNotify -MessageData $pso -Action $Notify
+    # Get-EventSubscriber
+    # Unregister-Event -SourceIdentifier "WiphyNotify"
 
     Start-Sleep -s 4
 
-    function GetNetworkBssList {
-        ParseNetworkBssList($iface.GetNetworkBssList())
-    }
-
-    GetNetworkBssList
+    ParseNetworkBssList($iface.GetNetworkBssList())
 }
 
