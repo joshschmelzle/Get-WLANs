@@ -1,10 +1,23 @@
 # Get-WLANs
 
-A PSGallery module to retrieve information about nearby Wi-Fi networks. This is for Windows only because it leverages Native Wifi [wlanapi.h](https://docs.microsoft.com/en-us/windows/win32/api/wlanapi/). 
+A PowerShell module for Windows that retrieves detailed information about nearby Wi-Fi networks, with a focus on signal strength metrics. 
 
-**This is a work in progress.**
+## Overview
 
-# Install from PowerShell Gallery
+This module leverages Windows' Native Wifi [wlanapi.h](https://docs.microsoft.com/en-us/windows/win32/api/wlanapi/) to provide information about nearby wireless networks, particularly RSSI (Received Signal Strength Indicator) values that aren't accessible through standard `netsh` commands.
+
+## Requirements
+
+- Host running Windows operating system
+- Wireless NIC installed on the host
+- PowerShell 3.0 or higher
+
+## Use Cases
+
+- Network diagnostics and troubleshooting
+- Signal strength monitoring
+
+## Install from PowerShell Gallery
 
 You can install [Get-WLANs from the PowerShell Gallery](https://www.powershellgallery.com/packages/Get-WLANs) (PSGallery). 
 
@@ -16,7 +29,7 @@ Get-WLANs
 
 ![](docs/WindowsTerminal_jgCkTPJBx4.png)
 
-# Basic Module Example
+## Basic module example
 
 You can sort and format the output of `Get-WLANs` like this:
 
@@ -33,7 +46,7 @@ Remove-Module Get-WLANs
 
 ![](docs/1-nic-scan-examplev2.png)
 
-# Updating
+## Updating
 
 ```
 # if the module is in use
@@ -47,10 +60,10 @@ Import-Module Get-WLANs
 Get-Module Get-WLANs
 ```
 
-# Known Issues
+## Known issues
 
 I've documented a few [known issues here](KNOWN_ISSUES.md)
 
-# License
+## License
 
 Project [license can be found here](LICENSE)
